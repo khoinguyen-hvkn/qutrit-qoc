@@ -114,7 +114,7 @@ print(Hnames)
 #Defining convergence parameters
 max_iterations = 1000
 decay = max_iterations/2
-convergence = {'rate': 0.1, 'update_step': 1, 'max_iterations': max_iterations, 'conv_target': 1e-4, 'learning_rate_decay': decay}
+convergence = {'rate': 0.1, 'update_step': 1, 'max_iterations': max_iterations, 'conv_target': 1e-3, 'learning_rate_decay': decay}
 
 # guassian envelope pulse
 reg_coeffs = {'envelope': 0.1, 'dwdt': 0.001}
@@ -136,4 +136,4 @@ uks, U_final = Grape(H0, Hops, Hnames, U, total_time, steps, psi0,
                     data_path = data_path)
 
 plt.plot(uks)
-plt.savefig('./figs/x01_180_qutrit_e4')
+plt.savefig('./figs/x01_180_qutrit_e3')
