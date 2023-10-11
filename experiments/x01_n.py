@@ -12,7 +12,7 @@ for root, dirs, files in os.walk(parent_dir):
 
 sys.path.append(parent_dir)
 sys.path.pop(0)
-print(sys.path)
+# print(sys.path)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -71,23 +71,17 @@ H_q = np.diag(ens)
 H0 = H_q
 
 #Defining Concerned states (starting states)
-g = np.array([1,0])
-e = np.array([0,1])
-psi0 = [g,e]
+# g = np.array([1,0])
+# e = np.array([0,1])
+# psi0 = [g, e]
+psi0 = [0, 1]
 
 #Defining states to include in the drawing of occupation
 states_draw_list = [0,1]
 states_draw_names = ['0','1']
 
 #Defining U (Target)
-target_vec_0 = np.zeros(qubit_state_num**qubit_num, dtype=complex)
-target_vec_0[1] = 1
-
-target_vec_1 = np.zeros(qubit_state_num**qubit_num, dtype=complex)
-target_vec_1[0] = 1
-    
-U = [target_vec_0,target_vec_1]
-
+U = np.array([[0, 1], [1, 0]])
 #Defining U0 (Initial)
 q_identity = np.identity(qubit_state_num**qubit_num)
 U0 = q_identity
@@ -104,21 +98,21 @@ Hnames = ['x', 'y']
 print(Hnames)
 
 #Defining convergence parameters
-max_iterations = 1000
-decay = 5000 #max_iterations/2
-convergence = {'rate': 0.1, 'update_step': 1, 'max_iterations': max_iterations, 'conv_target': 1e-6, 'learning_rate_decay': decay}
+max_iterations = 20
+decay = max_iterations/2
+convergence = {'rate': 0.1, 'update_step': 1, 'max_iterations': max_iterations, 'conv_target': 1e-4, 'learning_rate_decay': decay}
 
 # guassian envelope pulse
 reg_coeffs = {'envelope': 0.1, 'dwdt': 0.001}
 
-uks, U_final = Grape(H0, Hops, Hnames, U, total_time, steps, psi0,
+uks, U_final = Grape(H0, Hops, Hnames, U, total_time, steps, states_concerned_list=psi0,
                     convergence = convergence, 
                     draw = [states_draw_list, states_draw_names],
-                    state_transfer = True,
+                    state_transfer = False,
                     use_gpu = False,
                     sparse_H = False,
                     show_plots = True, 
-                    unitary_error = 1e-6, 
+                    unitary_error = 1e-4, 
                     method = 'L-BFGS-B', 
                     maxA = ops_max_amp,
                     Taylor_terms = [20,0],
@@ -128,4 +122,4 @@ uks, U_final = Grape(H0, Hops, Hnames, U, total_time, steps, psi0,
                     data_path = data_path)
 
 plt.plot(uks)
-plt.savefig('uks_n')
+plt.savefig('./figs/x01_n')

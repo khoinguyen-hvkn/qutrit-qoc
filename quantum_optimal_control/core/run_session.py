@@ -173,6 +173,7 @@ class run_session:
             self.conv_iter = self.iterations
             self.end = True
             print('Target fidelity reached')
+            print("Fidelity: ", 1 - self.l)
             self.grads = 0 * self.grads # set zero grads to terminate the scipy optimization
         
         self.update_and_save()

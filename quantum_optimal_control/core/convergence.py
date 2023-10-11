@@ -165,7 +165,7 @@ class Convergence:
             plt.clim(-1, 1)
             plt.colorbar()
             index += 1
-        
+        print("final unitary: ", self.final_state)
         ## operators
         plt.subplot(gs[index,:], title="Simulation Weights")
         ops_weight = self.anly.get_ops_weight()
