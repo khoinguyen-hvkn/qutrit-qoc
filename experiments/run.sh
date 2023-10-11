@@ -7,4 +7,4 @@
 #SBATCH --output=%x.%j.out
 #SBATCH --error=%x.%j.err
 
-python3 x01_180_qutrit.py
+python3 main.py

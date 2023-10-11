@@ -23,7 +23,7 @@ from quantum_optimal_control.helper_functions.grape_functions import *
 from quantum_optimal_control.main_grape.grape import Grape
 from utils import *
 
-data_path = '../output/x01_π/'
+data_path = '../output/x01_180/'
 
 # from qiskit_ibm_provider import IBMProvider
 
@@ -136,4 +136,5 @@ uks, U_final = Grape(H0, Hops, Hnames, U, total_time, steps, psi0,
                     data_path = data_path)
 
 plt.plot(uks)
+print("uks: ", uks)
 plt.savefig('./figs/x01_180_qutrit_e3')
